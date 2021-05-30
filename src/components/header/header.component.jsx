@@ -7,11 +7,11 @@ const Header=()=>(
       <Logo className="logo" />
     </Link>
     <div className="options">
-      <Link to="/shop">
+      <Link className="option" to="/shop">
         SHOP
       </Link>
-      <Link to="/contact">
-        SHOP
+      <Link className="option" to="/contact">
+        CONTACT
       </Link>
     </div>
   </div>
