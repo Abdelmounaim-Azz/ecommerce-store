@@ -1,6 +1,7 @@
 import './sign-in.styles.scss';
 import { useState } from 'react';
 import FormInput from '../form-input/form-input.component';
+import CustomButton from '../custom-btn/custom-btn.component';
 const SignIn = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -34,8 +35,7 @@ const SignIn = () => {
           label="Password"
           required
         />
-        <label>Password</label>
-        <input type="submit" value="Sign in For Free" />
+        <CustomButton type="submit">Sign in For Free</CustomButton>
       </form>
     </div>
   );
