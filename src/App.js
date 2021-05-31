@@ -1,7 +1,7 @@
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import './App.css';
-import { auth } from './firebase/firebase.utils';
+import { auth, createUserProfileDocument } from './firebase/firebase.utils';
 
 import HomePage from './pages/homepage/homepage.component';
 import Header from './components/header/header.component';
@@ -11,9 +11,10 @@ function App() {
   const [currentUser, setCurrentUser] = useState(null);
   useEffect(() => {
     let unsubscribedFromAuth = null;
-    unsubscribedFromAuth = auth.onAuthStateChanged((user) =>
-      setCurrentUser(user)
-    );
+    unsubscribedFromAuth = auth.onAuthStateChanged(async (user) => {
+      setCurrentUser(user);
+      createUserProfileDocument(user);
+    });
     return () => {
       unsubscribedFromAuth();
     };
