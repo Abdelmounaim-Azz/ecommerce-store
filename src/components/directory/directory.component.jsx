@@ -4,7 +4,7 @@ import SECTION_DATA from './directory.data';
 import './directory.styles.scss';
 
 const Directory = () => {
-  const [sections, setSections] = useState(SECTION_DATA);
+  const [sections] = useState(SECTION_DATA);
   return (
     <div className="directory-menu">
       {sections.map(({ id, ...otherSectionProps }) => (
