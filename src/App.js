@@ -11,14 +11,24 @@ function App() {
   const [currentUser, setCurrentUser] = useState(null);
   useEffect(() => {
     let unsubscribedFromAuth = null;
-    unsubscribedFromAuth = auth.onAuthStateChanged(async (user) => {
-      setCurrentUser(user);
-      createUserProfileDocument(user);
+    unsubscribedFromAuth = auth.onAuthStateChanged(async (userAuth) => {
+      if (userAuth) {
+        const userRef = await createUserProfileDocument(userAuth);
+        userRef.onSnapshot((snapshot) => {
+          const userData = {
+            id: snapshot.id,
+            ...snapshot.data(),
+          };
+          setCurrentUser(userData);
+        });
+        console.log(currentUser);
+      }
+      setCurrentUser(userAuth);
     });
     return () => {
       unsubscribedFromAuth();
     };
-  }, [currentUser]);
+  }, []);
 
   return (
     <Router>
