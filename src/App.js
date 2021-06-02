@@ -8,14 +8,6 @@ import Header from './components/header/header.component';
 import ShopPage from './pages/shop/shop.component';
 import Auth from './pages/auth/auth.component';
 class App extends React.Component {
-  constructor() {
-    super();
-
-    this.state = {
-      currentUser: null,
-    };
-  }
-
   unsubscribeFromAuth = null;
 
   componentDidMount() {
@@ -45,7 +37,7 @@ class App extends React.Component {
       <div>
         <Router>
           <div>
-            <Header currentUser={this.state.currentUser} />
+            <Header />
             <Switch>
               <Route exact path="/">
                 <HomePage />
