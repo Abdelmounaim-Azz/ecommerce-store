@@ -1,4 +1,9 @@
-import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
+  Redirect,
+} from 'react-router-dom';
 import React from 'react';
 import './App.css';
 import { auth, createUserProfileDocument } from './firebase/firebase.utils';
@@ -46,9 +51,13 @@ class App extends React.Component {
               <Route exact path="/shop">
                 <ShopPage />
               </Route>
-              <Route exact path="/signin">
-                <Auth />
-              </Route>
+              <Route
+                exact
+                path="/signin"
+                render={() =>
+                  this.props.currentUser ? <Redirect to="/" /> : <Auth />
+                }
+              ></Route>
             </Switch>
           </div>
         </Router>
@@ -56,8 +65,10 @@ class App extends React.Component {
     );
   }
 }
-
+const mapStateToProps = ({ user }) => ({
+  currentUser: user.currentUser,
+});
 const mapDispatchToProps = (dispatch) => ({
   setCurrentUser: (user) => dispatch(setCurrentUser(user)),
 });
-export default connect(null, mapDispatchToProps)(App);
+export default connect(mapStateToProps, mapDispatchToProps)(App);
